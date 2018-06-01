@@ -7,7 +7,6 @@ import (
 )
 
 /*
- #cgo LDFLAGS: -lsybdb
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>

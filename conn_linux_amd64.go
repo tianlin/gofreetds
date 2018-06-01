@@ -1,20 +1,8 @@
 //Package freetds provides interface to Microsoft Sql Server database by using freetds C lib: http://www.freetds.org.
 package freetds
 
-import (
-	"errors"
-	"fmt"
-	"regexp"
-	"strconv"
-	"strings"
-	"unsafe"
-	//	"log"
-	"sync"
-	"time"
-)
-
 /*
- #cgo LDFLAGS: -lsybdb
+ #cgo LDFLAGS: ${SRCDIR}/libsybdb_linux_amd64.a
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
@@ -60,6 +48,18 @@ import (
  }
 */
 import "C"
+
+import (
+	"errors"
+	"fmt"
+	"regexp"
+	"strconv"
+	"strings"
+	"unsafe"
+	//	"log"
+	"sync"
+	"time"
+)
 
 var connections map[int64]*Conn = make(map[int64]*Conn)
 var connectionsMutex sync.Mutex
