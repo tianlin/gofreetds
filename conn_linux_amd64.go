@@ -11,8 +11,8 @@ package freetds
  #include <unistd.h>
  #include <libgen.h>
 
- #include <sybfront.h>
- #include <sybdb.h>
+ #include "sybfront.h"
+ #include "sybdb.h"
 
  static int err_handler(DBPROCESS * dbproc, int severity, int dberr, int oserr, char *dberrstr, char *oserrstr)
  {

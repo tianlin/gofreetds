@@ -15,8 +15,8 @@ import (
  #include <unistd.h>
  #include <libgen.h>
 
- #include <sybfront.h>
- #include <sybdb.h>
+ #include "sybfront.h"
+ #include "sybdb.h"
 */
 import "C"
 
