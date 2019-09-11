@@ -2,7 +2,7 @@
 package freetds
 
 /*
- #cgo LDFLAGS: ${SRCDIR}/libsybdb_linux_amd64.a
+ #cgo LDFLAGS: ${SRCDIR}/libsybdb_linux_amd64.a -lrt
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
