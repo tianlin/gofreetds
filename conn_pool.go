@@ -69,21 +69,22 @@ func NewConnPool(connStr string) (*ConnPool, error) {
 	p.poolGuard = make(chan bool, p.maxConn)
 	p.addToPool(conn)
 	go func() {
-		select {
-		case <-p.cleanupTicker.C:
-			p.cleanup()
-		case <-p.done:
-			return
+		for {
+			select {
+			case <-p.cleanupTicker.C:
+				p.cleanup()
+			case <-p.done:
+				return
+			}
 		}
 	}()
 	return p, nil
 }
 
 func (p *ConnPool) newConn() (*Conn, error) {
+	conn, err := NewConn(p.connStr)
 	p.poolMutex.Lock()
 	defer p.poolMutex.Unlock()
-
-	conn, err := NewConn(p.connStr)
 	if err == nil {
 		conn.belongsToPool = p
 		//share stored procedure params cache between connections in the pool
@@ -194,7 +195,7 @@ func (p *ConnPool) cleanup() {
 	if len(p.pool) <= 1 {
 		return
 	}
-	for i := len(p.pool) - 2; i >= 0; i-- {
+	for i := len(p.pool) - 1; i >= 1; i-- {
 		conn := p.pool[i]
 		if conn.expiresFromPool.Before(time.Now()) {
 			conn.close()
