@@ -228,7 +228,7 @@ func (conn *Conn) getDbProc() (*C.DBPROCESS, error) {
 		C.my_setlversion(login)
 	}
 
-	chost := C.CString(conn.host)
+	chost := C.CString(fmt.Sprintf("%s:%d", conn.host, conn.port))
 	defer C.free(unsafe.Pointer(chost))
 	dbproc := C.dbopen(login, chost)
 	if dbproc == nil {
